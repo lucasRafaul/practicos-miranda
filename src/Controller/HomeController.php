@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     {
         return new Response(
             '<html><body>
-            <h1>"Real madrid 1 Arsenal 2" </h1>
+            <h1>"Home Inicial" </h1>
             </body><html>'
         );
     }
@@ -31,9 +31,11 @@ class HomeController extends AbstractController
     public function despedida(string $nombre): Response
     {
         return new Response(
-            '<html><body><h1> Hola! ' . $nombre . ' Bienvenido!</h1></body></html>' 
+            '<html><body><h1> Hola! ' . $nombre . ' Nos vemos!</h1></body></html>' 
         );
     }  
+
+
     #[Route('/estado/{nombre}/{estado}', name:'estado de animo')]
     public function estadoDeAnimo(string $nombre, string $estado): Response
     {

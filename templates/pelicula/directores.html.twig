@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peliculas por Director{% endblock %}
+
+{% block body %}
+<h1>Peliculas agrupadas por Director</h1>
+
+{% set current_director = null %}
+<ul>
+{% for pelicula in peliculas %}
+    {% if pelicula.director != current_director %}
+        {% if not loop.first %}
+            </ul>
+        {% endif %}
+
+        <h2>
+            {% if pelicula.director %}
+                {{ pelicula.director.nombre }}
+            {% else %}
+                <em>Sin director</em>
+            {% endif %}
+        </h2>
+        <ul>
+        {% set current_director = pelicula.director %}
+    {% endif %}
+
+    <li>
+        {{ pelicula.nombre }} ({{ pelicula.añoEstreno|date('Y') }})
+    </li>
+
+    {% if loop.last %}
+        </ul>
+    {% endif %}
+{% endfor %}

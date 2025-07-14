@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Crear Departamento con Empleados</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.nombre) }}
+        {{ form_row(form.ubicacion) }}
+        {{ form_row(form.jefe) }}
+
+        <h2>Empleados</h2>
+        <div data-prototype="{{ form_widget(form.empleados.vars.prototype)|e('html_attr') }}">
+            {% for empleadoForm in form.empleados %}
+                <div class="empleado-form">
+                    {{ form_row(empleadoForm) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="btn btn-primary">Guardar</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250521225714 extends AbstractMigration
+final class Version20250714215852 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,6 +24,9 @@ final class Version20250521225714 extends AbstractMigration
             CREATE TABLE departamento (id INT AUTO_INCREMENT NOT NULL, ubicacion_id INT DEFAULT NULL, jefe_id INT DEFAULT NULL, nombre VARCHAR(50) NOT NULL, INDEX IDX_40E497EB57E759E8 (ubicacion_id), INDEX IDX_40E497EB6919CBC2 (jefe_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
+            CREATE TABLE director (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL);
+        $this->addSql(<<<'SQL'
             CREATE TABLE empleado (id INT AUTO_INCREMENT NOT NULL, puesto_id INT DEFAULT NULL, jefe_id INT DEFAULT NULL, departamento_id INT DEFAULT NULL, nombre VARCHAR(50) NOT NULL, apellido VARCHAR(50) NOT NULL, email VARCHAR(100) NOT NULL, telefono INT NOT NULL, fecha_ingreso DATE NOT NULL, salario NUMERIC(8, 2) NOT NULL, comision NUMERIC(8, 2) NOT NULL, INDEX IDX_D9D9BF525035E9DA (puesto_id), INDEX IDX_D9D9BF526919CBC2 (jefe_id), INDEX IDX_D9D9BF525A91C08D (departamento_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
@@ -33,6 +36,9 @@ final class Version20250521225714 extends AbstractMigration
             CREATE TABLE pais (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(25) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
+            CREATE TABLE pelicula (id INT AUTO_INCREMENT NOT NULL, director_id INT DEFAULT NULL, nombre VARCHAR(100) NOT NULL, año_estreno DATE NOT NULL, INDEX IDX_73BC7095899FB366 (director_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL);
+        $this->addSql(<<<'SQL'
             CREATE TABLE provincia (id INT AUTO_INCREMENT NOT NULL, pais_id INT NOT NULL, nombre VARCHAR(50) NOT NULL, INDEX IDX_D39AF213C604D5C6 (pais_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
@@ -40,6 +46,9 @@ final class Version20250521225714 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE ubicacion (id INT AUTO_INCREMENT NOT NULL, provincia_id INT DEFAULT NULL, calle VARCHAR(50) NOT NULL, codigo_postal VARCHAR(15) NOT NULL, ciudad VARCHAR(100) NOT NULL, INDEX IDX_DC158CB84E7121AF (provincia_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', available_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', delivered_at DATETIME DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
@@ -69,76 +78,19 @@ final class Version20250521225714 extends AbstractMigration
             ALTER TABLE historial_puesto ADD CONSTRAINT FK_405C765C5A91C08D FOREIGN KEY (departamento_id) REFERENCES departamento (id)
         SQL);
         $this->addSql(<<<'SQL'
+            ALTER TABLE pelicula ADD CONSTRAINT FK_73BC7095899FB366 FOREIGN KEY (director_id) REFERENCES director (id)
+        SQL);
+        $this->addSql(<<<'SQL'
             ALTER TABLE provincia ADD CONSTRAINT FK_D39AF213C604D5C6 FOREIGN KEY (pais_id) REFERENCES pais (id)
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE ubicacion ADD CONSTRAINT FK_DC158CB84E7121AF FOREIGN KEY (provincia_id) REFERENCES provincia (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE comentario DROP FOREIGN KEY FK_4B91E702DB38439E
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE comentario DROP FOREIGN KEY FK_4B91E702F9C5E347
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE posteo DROP FOREIGN KEY FK_4E77602BDB38439E
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE posteo DROP FOREIGN KEY FK_4E77602B3397707A
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE tag DROP FOREIGN KEY FK_389B78379F05F60
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP TABLE categoria
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP TABLE comentario
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP TABLE posteo
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP TABLE tag
-        SQL);
-        $this->addSql(<<<'SQL'
-            DROP TABLE usuario
         SQL);
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql(<<<'SQL'
-            CREATE TABLE categoria (id INT AUTO_INCREMENT NOT NULL, titulo VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
-        SQL);
-        $this->addSql(<<<'SQL'
-            CREATE TABLE comentario (id INT AUTO_INCREMENT NOT NULL, posteo_id INT NOT NULL, usuario_id INT DEFAULT NULL, descripcion VARCHAR(500) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, fecha DATETIME DEFAULT 'NULL', INDEX IDX_4B91E702F9C5E347 (posteo_id), INDEX IDX_4B91E702DB38439E (usuario_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
-        SQL);
-        $this->addSql(<<<'SQL'
-            CREATE TABLE posteo (id INT AUTO_INCREMENT NOT NULL, categoria_id INT NOT NULL, usuario_id INT NOT NULL, titulo VARCHAR(150) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, descripcion VARCHAR(500) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, fecha DATETIME NOT NULL, imagen VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT 'NULL' COLLATE `utf8mb4_unicode_ci`, INDEX IDX_4E77602B3397707A (categoria_id), INDEX IDX_4E77602BDB38439E (usuario_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
-        SQL);
-        $this->addSql(<<<'SQL'
-            CREATE TABLE tag (id INT AUTO_INCREMENT NOT NULL, id_posteo_id INT DEFAULT NULL, titulo VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, UNIQUE INDEX UNIQ_389B78379F05F60 (id_posteo_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
-        SQL);
-        $this->addSql(<<<'SQL'
-            CREATE TABLE usuario (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`, password VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, username VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT 'NULL' COLLATE `utf8mb4_unicode_ci`, UNIQUE INDEX UNIQ_2265B05DE7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE comentario ADD CONSTRAINT FK_4B91E702DB38439E FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE comentario ADD CONSTRAINT FK_4B91E702F9C5E347 FOREIGN KEY (posteo_id) REFERENCES posteo (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE posteo ADD CONSTRAINT FK_4E77602BDB38439E FOREIGN KEY (usuario_id) REFERENCES usuario (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE posteo ADD CONSTRAINT FK_4E77602B3397707A FOREIGN KEY (categoria_id) REFERENCES categoria (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE tag ADD CONSTRAINT FK_389B78379F05F60 FOREIGN KEY (id_posteo_id) REFERENCES posteo (id)
-        SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE departamento DROP FOREIGN KEY FK_40E497EB57E759E8
         SQL);
@@ -164,6 +116,9 @@ final class Version20250521225714 extends AbstractMigration
             ALTER TABLE historial_puesto DROP FOREIGN KEY FK_405C765C5A91C08D
         SQL);
         $this->addSql(<<<'SQL'
+            ALTER TABLE pelicula DROP FOREIGN KEY FK_73BC7095899FB366
+        SQL);
+        $this->addSql(<<<'SQL'
             ALTER TABLE provincia DROP FOREIGN KEY FK_D39AF213C604D5C6
         SQL);
         $this->addSql(<<<'SQL'
@@ -171,6 +126,9 @@ final class Version20250521225714 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE departamento
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP TABLE director
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE empleado
@@ -182,6 +140,9 @@ final class Version20250521225714 extends AbstractMigration
             DROP TABLE pais
         SQL);
         $this->addSql(<<<'SQL'
+            DROP TABLE pelicula
+        SQL);
+        $this->addSql(<<<'SQL'
             DROP TABLE provincia
         SQL);
         $this->addSql(<<<'SQL'
@@ -189,6 +150,9 @@ final class Version20250521225714 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE ubicacion
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP TABLE user
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE messenger_messages

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peliculas{% endblock %}
+
+{% block body %}
+<h1>Peliculas</h1>
+
+{% if peliculas is empty %}
+    <p>No se encontraron peliculas.</p>
+{% else %}
+    <ul>
+    {% for pelicula in peliculas %}
+        <li>
+            <strong>{{ pelicula.nombre }}</strong>
+            ({{ pelicula.añoEstreno }})
+            - Dirigida por {{ pelicula.director.nombre }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
+
