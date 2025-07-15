@@ -27,7 +27,7 @@ class Departamento
     /**
      * @var Collection<int, Empleado>
      */
-    #[ORM\OneToMany(targetEntity: Empleado::class, mappedBy: 'departamento')]
+    #[ORM\OneToMany(targetEntity: Empleado::class, mappedBy: 'departamento', cascade: ['persist'],orphanRemoval: true, )]
     private Collection $empleados;
 
     /**

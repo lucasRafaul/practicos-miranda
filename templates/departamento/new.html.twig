@@ -4,19 +4,75 @@
     <h1>Crear Departamento con Empleados</h1>
 
     {{ form_start(form) }}
-        {{ form_row(form.nombre) }}
-        {{ form_row(form.ubicacion) }}
-        {{ form_row(form.jefe) }}
 
-        <h2>Empleados</h2>
-        <div data-prototype="{{ form_widget(form.empleados.vars.prototype)|e('html_attr') }}">
-            {% for empleadoForm in form.empleados %}
-                <div class="empleado-form">
-                    {{ form_row(empleadoForm) }}
-                </div>
-            {% endfor %}
-        </div>
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.ubicacion) }}
+    {{ form_row(form.jefe) }}
 
-        <button class="btn btn-primary">Guardar</button>
+    <h2>Empleados</h2>
+    <div id="empleados-collection"
+         data-prototype="{{ form_widget(form.empleados.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.empleados|length }}">
+        {% for empleadoForm in form.empleados %}
+            <div class="empleado-form">
+                {{ form_row(empleadoForm) }}
+                <button type="button" class="remove-empleado">🗑️ Quitar</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-empleado">➕ Agregar Empleado</button>
+
+    <br><br>
+    <button class="btn btn-primary">Guardar</button>
+
     {{ form_end(form) }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collectionHolder = document.getElementById('empleados-collection');
+            const addButton = document.getElementById('add-empleado');
+
+            const prototype = collectionHolder.dataset.prototype;
+            let index = parseInt(collectionHolder.dataset.index);
+
+            addButton.addEventListener('click', function () {
+                const newForm = prototype.replace(/__name__/g, index);
+                const formElement = document.createElement('div');
+                formElement.classList.add('empleado-form');
+                formElement.innerHTML = newForm;
+
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.textContent = '🗑️ Quitar';
+                removeButton.classList.add('remove-empleado');
+
+                removeButton.addEventListener('click', () => {
+                    formElement.remove();
+                });
+
+                formElement.appendChild(removeButton);
+                collectionHolder.appendChild(formElement);
+
+                index++;
+                collectionHolder.dataset.index = index;
+            });
+
+            // Para que los botones "Quitar" existentes también funcionen
+            document.querySelectorAll('.remove-empleado').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    button.closest('.empleado-form').remove();
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .empleado-form {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+    </style>
 {% endblock %}

@@ -29,5 +29,6 @@ class DirectorFixtures extends Fixture
         $this->addReference('director_nolan', $director1);
         $this->addReference('director_coppola', $director2);
         $this->addReference('director_tarantino', $director3);
+        
     }
 }

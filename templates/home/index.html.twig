@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trabajos Practicos cristian miranda{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Practicos</h1>
+        <p>Selecciona un ejemplo para ver:</p>
+        <ul>
+            <li>
+                <a href="{{ path('saludo', {'nombre': 'Lucas'}) }}">
+                    Saludo personalizado
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('departamento_new') }}">
+                    Crear un Departamento con Empleados
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_pelicula') }}">
+                    Listado de Películas
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_login') }}">
+                    Gestión de Usuarios
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

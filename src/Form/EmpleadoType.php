@@ -32,10 +32,10 @@ class EmpleadoType extends AbstractType
                 'class' => Empleado::class,
                 'choice_label' => 'id',
             ])
-            ->add('departamento', EntityType::class, [
-                'class' => Departamento::class,
-                'choice_label' => 'id',
-            ])
+            //->add('departamento', EntityType::class, [
+                //'class' => Departamento::class,
+                //'choice_label' => 'id',
+            //])
         ;
     }
 

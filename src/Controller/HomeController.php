@@ -13,11 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name:'home')]
     public function homeAction(): Response
     {
-        return new Response(
-            '<html><body>
-            <h1>"Home Inicial" </h1>
-            </body><html>'
-        );
+        return $this->render('home/index.html.twig');
     }
     #[Route('/saludo/{nombre}', name:'saludo')]
     public function saludo(string $nombre): Response
