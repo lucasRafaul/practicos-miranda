@@ -114,18 +114,15 @@ class ProvinciaController extends AbstractController{
     $dompdf->setPaper('A4', 'portrait'); 
     $dompdf->render(); 
  
-    return new Response( 
-        $dompdf->output(), 
-        200, 
-        [ 
-            'Content-Type' => 'application/pdf', 
-            'Content-Disposition' => 'attachment; 
-            filename="reporte_provincias.pdf"', 
-                    ] 
-                ); 
-            } 
-
-
+    return new Response(
+    $dompdf->output(),
+    200,
+    [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'attachment; filename="reporte_provincias.pdf"',
+    ]
+);
+} 
 }
 
 
