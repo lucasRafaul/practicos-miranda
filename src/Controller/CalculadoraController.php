@@ -19,7 +19,7 @@ class CalculadoraController extends AbstractController
         $multiplicacion = $calculadora_service->multi($n1,$n2);
         $division = $calculadora_service->divi($n1,$n2);
         return new Response(
-            "<h1>$suma . $resta . $multiplicacion . $division</h1>"
+            "<h1>suma: $suma . resta: $resta . multiplicacion: $multiplicacion . division: $division</h1>"
         );
     }
     

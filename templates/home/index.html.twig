@@ -1,32 +1,129 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trabajos Practicos cristian miranda{% endblock %}
+{% block title %}Trabajos Prácticos - Cristian Miranda{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Practicos</h1>
-        <p>Selecciona un ejemplo para ver:</p>
-        <ul>
-            <li>
-                <a href="{{ path('saludo', {'nombre': 'Lucas'}) }}">
-                    Saludo personalizado
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('departamento_new') }}">
-                    Crear un Departamento con Empleados
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('app_pelicula') }}">
-                    Listado de Películas
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('app_login') }}">
-                    Gestión de Usuarios
-                </a>
-            </li>
-        </ul>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Trabajos Prácticos</h1>
+        <p class="lead">Selecciona un ejemplo para visualizarlo:</p>
     </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Saludo</h5>
+                    <p class="card-text">Saludo personalizado con tu nombre.</p>
+                    <a href="{{ path('saludo', {'nombre': 'Lucas'}) }}" class="btn btn-outline-primary">Ver saludo</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios desde JSON</h5>
+                    <p class="card-text">Carga y muestra usuarios a partir de un archivo JSON.</p>
+                    <a href="{{ path('usuario_random', {'id' : 0}) }}" class="btn btn-outline-secondary">Ver usuarios</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Registro</h5>
+                    <p class="card-text">Formulario de registro de usuarios.</p>
+                    <a href="{{ path('RegistroUsuario') }}" class="btn btn-outline-success">Ir al registro</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre aleatorio</h5>
+                    <p class="card-text">Genera un nombre aleatorio.</p>
+                    <a href="{{ path('aleatorio') }}" class="btn btn-outline-warning">Probar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Mayoría de edad</h5>
+                    <p class="card-text">Verifica si una persona es mayor de edad.</p>
+                    <a href="{{ path('mayoria_edad', {'edad': 19}) }}" class="btn btn-outline-danger">Verificar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Departamentos y empleados</h5>
+                    <p class="card-text">Crea un departamento con empleados asociados.</p>
+                    <a href="{{ path('departamento_new') }}" class="btn btn-outline-info">Crear</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Películas</h5>
+                    <p class="card-text">Visualiza el listado de películas.</p>
+                    <a href="{{ path('app_pelicula') }}" class="btn btn-outline-dark">Ver películas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Login</h5>
+                    <p class="card-text">Página de inicio de sesión.</p>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Estudiantes y cursos</h5>
+                    <p class="card-text">Listado de estudiantes y sus cursos.</p>
+                    <a href="{{ path('app_estudiantes') }}" class="btn btn-outline-secondary mb-2">Ver estudiantes</a>
+                    <a href="{{ path('ver_cursos') }}" class="btn btn-outline-secondary">Ver cursos</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Calculadora y fecha</h5>
+                    <p class="card-text">Calculadora mediante servicio y fecha actual.</p>
+                    <a href="{{ path('calculadora') }}" class="btn btn-outline-success mb-2">Calculadora</a>
+                    <a href="{{ path('fecha') }}" class="btn btn-outline-success">Fecha</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Reporte de provincias</h5>
+                    <p class="card-text">Generación de reportes de provincias en distintos formatos.</p>
+                    <a href="{{ path('provincia_reporte') }}" class="btn btn-outline-warning mb-2">Ver reporte</a>
+                    <a href="{{ path('reporte_excel') }}" class="btn btn-outline-warning mb-2">Exportar Excel</a>
+                    <a href="{{ path('provincia_exportar_pdf') }}" class="btn btn-outline-warning">Exportar PDF</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}

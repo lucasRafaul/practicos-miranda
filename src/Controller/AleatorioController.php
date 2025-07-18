@@ -13,13 +13,16 @@ class AleatorioController
     public function saludoAleatorio(): Response
     {
         $nombres = array('Lucas','Anna','Leonardo','Messi','Julian','Karol','Bad Bunny');
-        $nombresAleatorios = array_rand($nombres);
+        $indiceAleatorio = array_rand($nombres);
+        $nombreAleatorio = $nombres[$indiceAleatorio];
+
         return new Response(
             "<html><body>
-            <h1>Hola!  $nombresAleatorios</h1>
-            </body><html>"
+            <h1>Hola! $nombreAleatorio</h1>
+            </body></html>"
         );
     }
+
 }
 
 

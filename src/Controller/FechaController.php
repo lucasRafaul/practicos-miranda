@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class FechaController extends AbstractController
 {
-    #[Route('/fecha', name:'calculadora')]
+    #[Route('/fecha', name:'fecha')]
     public function calcular(FechaService $fecha_service ): Response
     {   
         $fecha = $fecha_service->fechaFormateada();
