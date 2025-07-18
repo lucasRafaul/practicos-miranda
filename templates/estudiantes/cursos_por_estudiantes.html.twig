@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cursos{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Estudiantes por curso</h1>
+
+        {% for curso, estudiantes in cursos %}
+            <h3>Curso {{ curso }}</h3>
+            <ul>
+                {% for estudiante in estudiantes %}
+                    <li>{{ estudiante.nombre }} - Nota: {{ estudiante.nota }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}

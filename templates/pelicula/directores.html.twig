@@ -24,11 +24,11 @@
         {% set current_director = pelicula.director %}
     {% endif %}
 
-    <!--
+
     <li>
-        {{ pelicula.nombre }} ({{ pelicula.añoEstreno|date('Y') }})
+        {{ pelicula.nombre }} ({{ pelicula.añoEstreno|date('d/m/Y') }})
     </li>
-     -->
+
 
     {% if loop.last %}
         </ul>

@@ -1,0 +1,11 @@
+{% extends 'layout_estudiantes.html.twig' %}
+
+{% block title %}Vista de los Estudiantes embed{% endblock %}
+
+{% block contenido_estudiantes %}
+    <ul>
+        {% for estudiante in estudiantes %}
+            <li>{{ estudiante.nombre }} - Con Nota: {{ estudiante.nota }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

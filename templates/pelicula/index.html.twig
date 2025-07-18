@@ -12,9 +12,7 @@
     {% for pelicula in peliculas %}
         <li>
             <strong>{{ pelicula.nombre }}</strong>
-            <!--
-            ({{ pelicula.añoEstreno }})
-             -->
+            ({{  pelicula.añoEstreno|date('d/m/Y')  }})
             - Dirigida por {{ pelicula.director.nombre }}
         </li>
     {% endfor %}

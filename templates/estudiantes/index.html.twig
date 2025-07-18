@@ -1,0 +1,27 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Estudiantes{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Estudiantes</h1>
+
+        {% if estudiantes is empty %}
+            {% include '_alerta.html.twig' with { 'mensaje': 'No hay estudiantes registrados actualmente.' } %}
+        {% else %}
+            <ul>
+                {% for estudiante in estudiantes %}
+                    <li>
+                        {{ estudiante.nombre }} - Nota: {{ estudiante.nota }}
+                        {% if estudiante.nota >= 6 %}
+                            <strong style="color: green;">(Aprobado)</strong>
+                        {% else %}
+                            <span style="color: red;">(Desaprobado)</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
